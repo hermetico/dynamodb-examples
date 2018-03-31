@@ -1,0 +1,4 @@
+= DynamoDB Example
+
+Example of running DynamoDB locally, for use as demo in the DM566 course at IMADA, SDU.
+
