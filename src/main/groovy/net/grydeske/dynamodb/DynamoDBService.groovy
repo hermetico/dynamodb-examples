@@ -125,33 +125,8 @@ class DynamoDBService {
     void query( String tableName) {
         Table table = dynamodb.getTable(tableName);
 
-        HashMap<String, Object> valueMap = [":yyyy", 1985]
+        // TODO :)
 
-        QuerySpec querySpec = new QuerySpec()
-                .withConditionalOperator()
-                .withKeyConditionExpression("#yr = :yyyy")
-                .withNameMap(nameMap)
-                .withValueMap(valueMap);
-
-        ItemCollection<QueryOutcome> items = null;
-        Iterator<Item> iterator = null;
-        Item item = null;
-
-        try {
-            System.out.println("Movies from 1985");
-            items = table.query(querySpec);
-
-            iterator = items.iterator();
-            while (iterator.hasNext()) {
-                item = iterator.next();
-                System.out.println(item.getNumber("year") + ": " + item.getString("title"));
-            }
-
-        }
-        catch (Exception e) {
-            System.err.println("Unable to query movies from 1985");
-            System.err.println(e.getMessage());
-        }
 
     }
 
