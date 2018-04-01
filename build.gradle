@@ -1,0 +1,40 @@
+group 'net.grydeske.dynamodb'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+
+    maven {
+        url "https://s3.eu-central-1.amazonaws.com/dynamodb-local-frankfurt/release"
+    }
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.15'
+    compile 'com.amazonaws:DynamoDBLocal:1.11.86'
+
+}
+
+run {
+    main = 'net.grydeske.dynamodb.Example'
+    standardInput = System.in
+//    args = ['-Dsqlite4java.library.path=target/dependencies']
+}
+
+// From https://stackoverflow.com/questions/34401039/run-dynamodb-local-as-part-of-a-gradle-java-project
+task copyNativeDeps(type: Copy) {
+    from (configurations.compile) {
+        include "*.dylib"
+        include "*.so"
+        include "*.dll"
+    }
+    into 'build/libs'
+}
+
+run.dependsOn copyNativeDeps
+run.doFirst {
+    systemProperty "java.library.path", 'build/libs'
+}
