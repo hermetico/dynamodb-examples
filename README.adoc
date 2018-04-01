@@ -28,3 +28,5 @@ You should find help in the documentation: https://docs.aws.amazon.com/amazondyn
 ** Make also an aggegate list, where you group by the location.
 . Extend the location with a username, so you can use the database for many users
 ** And extract who have seen the pokemon how many times.
+
+TIP: There should be plenty of exercises - this is by design, so you don't run out of ideas to implement in the tutorial session.
