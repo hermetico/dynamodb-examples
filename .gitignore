@@ -1,4 +1,9 @@
 build/
 .gradle/
-gradle*
+gradle/
+build.gradle
+gradle
+gradlew
 .idea/
+src/main/groovy/
+*.iml
