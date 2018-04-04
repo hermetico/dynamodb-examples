@@ -28,11 +28,20 @@ class SampleApplication {
                 case 'scan':
                     listPokemons()
                     break
+                case 'help':
+                    listCommands()
+                    break
                 default:
                     println "Unknown input: ${line}"
+                    listCommands()
             }
             line = sc.nextLine()
         }
+    }
+
+    void listCommands(){
+        println "Commands available:"
+        println "tables\nload\nid\nscan\nhelp\nexit"
     }
 
     void listTables() {
@@ -46,9 +55,23 @@ class SampleApplication {
     void lookupById(Scanner sc) {
         println "Which id should we look for?"
         String id = sc.nextLine()
-        dynamoDBService.getById('pokemon', 'Id', id)
+        Item pokemon = dynamoDBService.getById('pokemon', 'Id', id)
+        if(pokemon != null){
+            show(pokemon)
+        }
+
     }
 
+    void show(Item item){
+        Map pokemon = item.asMap()
+        println "${pokemon['Name']} - ${pokemon['Type1']}:"
+        for(String key: pokemon.keySet()){
+            if(key.equals("name") || key.equals("Type1"))
+                continue;
+            println "- ${key} ${pokemon[key]}"
+        }
+        println ""
+    }
     // Scan
     void listPokemons() {
         List<Item> pokemonItems = dynamoDBService.scanTable('pokemon')
@@ -64,7 +87,7 @@ class SampleApplication {
         println "Which type are you looking for?"
         String type = sc.nextLine()
 
-        // TODO Find and print all pokemons of the decired type
+        // TODO Find and print all pokemons of the desired type
 
     }
 

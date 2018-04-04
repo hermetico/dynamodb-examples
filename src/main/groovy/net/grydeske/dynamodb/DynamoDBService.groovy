@@ -88,21 +88,22 @@ class DynamoDBService {
         }
     }
 
-    void getById(String tableName, String keyName, String keyValue) {
+    Item getById(String tableName, String keyName, String keyValue) {
         Table table = dynamodb.getTable(tableName);
 
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(keyName, keyValue)
-
+        Item pokemon = null
         try {
             println("Attempting to read the item...");
-            Item outcome = table.getItem(spec)
-            println("GetItem succeeded: " + outcome)
+            pokemon = table.getItem(spec)
+            //println("GetItem succeeded: " + outcome)
 
         } catch (Exception e) {
             println("Unable to read item: ${keyName}=${keyValue}")
             println(e.getMessage())
         }
 
+        return pokemon
     }
 
     List<Item> scanTable(String tableName) {

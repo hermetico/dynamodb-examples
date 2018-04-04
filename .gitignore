@@ -5,5 +5,4 @@ build.gradle
 gradle
 gradlew
 .idea/
-src/main/groovy/
 *.iml
